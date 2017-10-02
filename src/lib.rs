@@ -1,9 +1,6 @@
 extern crate bytes;
 extern crate futures;
 extern crate httparse;
-extern crate net2;
-extern crate time;
-extern crate tokio_core;
 extern crate tokio_io;
 extern crate tokio_proto;
 extern crate tokio_service;
