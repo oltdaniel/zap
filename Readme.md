@@ -8,6 +8,14 @@ The mission of `zap` is, to deliver a fast rust web framework that just supports
 
 **This code is based on tokio's minihttp project, so a big thanks to them.** ([source](https://github.com/tokio-rs/tokio-minihttp))
 
+## How to use
+
+Add the following to your `Cargo.toml`:
+```toml
+[dependencies]
+zap = { git = "https://github.com/oldaniel/zap" }
+```
+
 ## Speed
 
 So `zap` is not only fast, it is wapping **x2,7** times faster than iron which is based on hyper. Benchmarks below:
