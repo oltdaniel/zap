@@ -128,6 +128,14 @@ Requests/sec: 854783.80
 Transfer/sec:     55.43MB
 ```
 
+## Todo
+
+Some things we still need to make:
+
+- [] Make it faster
+- [] URL and body parsing
+- [] Request key storing
+
 ## Credist & License
 
 A project by [Daniel Oltmanns](https://github.com/oldaniel).
