@@ -132,9 +132,9 @@ Transfer/sec:     55.43MB
 
 Some things we still need to make:
 
-- [] Make it faster
-- [] URL and body parsing
-- [] Request key storing
+- [ ] Make it faster
+- [ ] URL and body parsing
+- [ ] Request key storing
 
 ## Credist & License
 
