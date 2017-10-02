@@ -4,6 +4,13 @@ version = "0.0.1"
 authors = ["Daniel Oltmanns <daniel.oltmanns@outlook.de>"]
 description = "Ligthing fast web framework for rust"
 keywords = ["web-framework", "http", "efficiency"]
+categories = ["network-programming", "web-programming"]
+
+exclude = [".gitignore", "examples/*"]
+readme = "Readme.md"
+license = "MIT/Apache-2.0"
+hompage = "https://github.com/oldaniel/zap"
+repository = "https://github.com/oldaniel/zap"
 
 [dependencies]
 bytes = "0.4"
