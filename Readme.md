@@ -13,7 +13,7 @@ The mission of `zap` is, to deliver a fast rust web framework that just supports
 Add the following to your `Cargo.toml`:
 ```toml
 [dependencies]
-zap = { git = "https://github.com/oldaniel/zap" }
+zap = "0.0.1"
 ```
 
 ## Speed
