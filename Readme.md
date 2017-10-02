@@ -24,6 +24,8 @@ So `zap` is not only fast, it is wapping **x2,7** times faster than iron which i
 
 **Iron**
 
+This code had been taken from the [ironframework.io](http://ironframework.io) webpage.
+
 ```rust
 extern crate iron;
 
@@ -41,7 +43,15 @@ fn main() {
 ```
 
 **Zap**
+
+This example can be run, by:
+
 ```
+$ git clone https://github.com/oldaniel/zap && cd zap
+$ cargo run --example hello-world --release
+```
+
+```rust
 extern crate zap;
 
 use std::io;
@@ -56,10 +66,12 @@ impl Handler for HelloWorld {
     type Error = io::Error;
     type Future = ZapResult;
 
-    fn call(&self, req: Request) -> ZapResult {
+    fn call(&self, _: Request) -> ZapResult {
         let mut resp = Response::new();
 
-        resp.body("Hello World!").ok()
+        resp.body("Hello World!");
+
+        resp.ok()
     }
 }
 
@@ -72,6 +84,13 @@ fn main() {
 ```
 
 ### Benchmark Results
+
+The benchmarks had been done with the following command: `wrk -t16 -c500 -d10s http://127.0.0.1:8080 --latency`
+
+Technical details about the server:
+
+- Intel Core I7-6700K, hyperthreaded
+- 16GB RAM, 2400MHZ
 
 **Iron**
 
