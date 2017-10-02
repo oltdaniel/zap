@@ -53,7 +53,7 @@ impl Encoder for HttpCodec {
     type Error = io::Error;
 
     fn encode(&mut self, msg: Response, buf: &mut BytesMut) -> io::Result<()> {
-        response::encode(msg, buf);
+        response::encode(&msg, buf);
         Ok(())
     }
 }

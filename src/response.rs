@@ -13,7 +13,7 @@ pub struct Response {
 
 enum StatusMessage {
     Ok,
-    Custom(u32, String)
+    Custom(u32, String),
 }
 
 impl Response {
@@ -45,23 +45,27 @@ impl Response {
     }
 }
 
-pub fn encode(msg: Response, buf: &mut BytesMut) {
+pub fn encode(msg: &Response, buf: &mut BytesMut) {
     let length = msg.response.len();
 
-    write!(FastWrite(buf), "\
+    write!(FastWrite(buf),
+           "\
         HTTP/1.1 {}\r\n\
         Server: Example\r\n\
         Content-Length: {}\r\n\
-    ", msg.status_message, length).unwrap();
+    ",
+           msg.status_message,
+           length)
+            .unwrap();
 
     for &(ref k, ref v) in &msg.headers {
         push(buf, k.as_bytes());
-        push(buf, ": ".as_bytes());
+        push(buf, &[58, 32]); // ": "
         push(buf, v.as_bytes());
-        push(buf, "\r\n".as_bytes());
+        push(buf, &[13, 10]); // "\r\n"
     }
 
-    push(buf, "\r\n".as_bytes());
+    push(buf, &[13, 10]);
     push(buf, msg.response.as_bytes());
 }
 
