@@ -2,7 +2,7 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/oldaniel/zap.svg)](https://github.com/oldaniel/zap/issues)
 
-The mission of `zap` is, to deliver a fast rust web framework that just supports the basics.
+The mission of `zap` is, to deliver a basic, but fast rust web framework .
 
 ## About
 
@@ -18,7 +18,7 @@ zap = "0.0.1"
 
 ## Speed
 
-So `zap` is not only fast, it is wapping **x2,7** times faster than iron which is based on hyper. Benchmarks below:
+So `zap` is not only fast, it is wapping **2.7** times faster than [iron](https://github.com/iron/iron), which is based on [hyper](https://github.com/hyperium/hyper). Benchmarks below:
 
 ### Benchmark Code
 
@@ -85,11 +85,11 @@ fn main() {
 
 ### Benchmark Results
 
-The benchmarks had been done with the following command: `wrk -t16 -c500 -d10s http://127.0.0.1:8080 --latency`
+The benchmark results have been computed with this command: `wrk -t16 -c500 -d10s http://127.0.0.1:8080 --latency`
 
 Technical details about the server:
 
-- Intel Core I7-6700K, hyperthreaded
+- Intel Core I7-6700K, hyper-threaded
 - 16GB RAM, 2400MHZ
 
 **Iron**
@@ -136,7 +136,7 @@ Some things we still need to make:
 - [ ] URL and body parsing
 - [ ] Request key storing
 
-## Credist & License
+## Credits & License
 
 A project by [Daniel Oltmanns](https://github.com/oldaniel).
 
