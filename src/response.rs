@@ -49,11 +49,7 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
     let length = msg.response.len();
 
     write!(FastWrite(buf),
-           "\
-        HTTP/1.1 {}\r\n\
-        Server: Example\r\n\
-        Content-Length: {}\r\n\
-    ",
+           "HTTP/1.1 {}\r\nContent-Length: {}\r\n",
            msg.status_message,
            length)
             .unwrap();
