@@ -65,7 +65,7 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
         push(buf, &[13, 10]); // "\r\n"
     }
 
-    push(buf, &[13, 10]);
+    push(buf, &[13, 10]); // "\r\n"
     push(buf, msg.response.as_bytes());
 }
 
