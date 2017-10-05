@@ -45,8 +45,14 @@ mod tests {
         let mut buffer = BytesMut::new();
 
         b.iter(|| {
-            let length = "HTTP/1.1 200 OK".len() as u32;
-            let data: [u8; 4] = unsafe { transmute(length.to_be()) };
+            let mut length = "HTTP/1.1 200 OK".len() as u16;
+
+            let mut data : [u8; 4] = [0; 4];
+
+            for i in 1..5 {
+                data[4 - i] = (48 + (length % (10 * i) as u16)) as u8;
+                length = &length / (10 * i) as u16;
+            }
 
             push(&mut buffer, &data);
         });
