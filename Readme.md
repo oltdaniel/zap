@@ -4,7 +4,9 @@
 [![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://github.com/oldaniel/zap)
 [![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://github.com/oldaniel/zap)
 
-The mission of `zap` is, to deliver a basic, but fast rust web framework .
+The mission of `zap` is, to deliver a basic, but fast rust web framework.
+
+[Documentation](https://docs.rs/zap/0.0.1/zap/)
 
 ## About
 
@@ -58,7 +60,7 @@ extern crate zap;
 
 use std::io;
 
-use zap::{Server, Http, Handler, ZapResult, Request, Response};
+use zap::prelude::*;
 
 struct HelloWorld;
 

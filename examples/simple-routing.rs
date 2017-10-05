@@ -2,7 +2,7 @@ extern crate zap;
 
 use std::io;
 
-use zap::{Server, Http, Handler, ZapResult, Request, Response};
+use zap::prelude::*;
 
 struct HelloWorld;
 
@@ -16,14 +16,14 @@ impl Handler for HelloWorld {
         let mut resp = Response::new();
 
         match (req.method(), req.path()) {
-            ("GET", "") => {
+            ("GET", "/") => {
                 resp.body("Hello World!");
             },
             ("GET", "/bye") => {
                 resp.body("Bye World!");
             },
             _ => {
-                resp.body("Not Found").status(404, "NotFound");
+                resp.body("Not Found").status(404);
             }
         }
 

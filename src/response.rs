@@ -72,8 +72,9 @@ fn usize_to_bytes(s : usize) -> [u8; 4] {
 
     // Convert u16 to ASCII bytes
     for i in 1..5 {
-        data[4 - i] = (48 + (length % (10 * i) as u16)) as u8;
-        length = &length / (10 * i) as u16;
+        let base = (10 * i) as u16;
+        data[4 - i] = 48 + (&length % &base) as u8;
+        length = &length / &base;
     }
 
     return data;

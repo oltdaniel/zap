@@ -2,7 +2,7 @@ extern crate zap;
 
 use std::io;
 
-use zap::{Server, Http, Handler, ZapResult, Request, Response};
+use zap::prelude::*;
 
 struct HelloWorld;
 

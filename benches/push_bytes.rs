@@ -6,7 +6,6 @@ mod tests {
     use test::Bencher;
     use bytes::{BytesMut, BufMut};
     use std::fmt::{self, Write};
-    use std::mem::transmute;
 
     #[bench]
     fn bench_push_to_buffer(b : &mut Bencher) {
@@ -50,8 +49,9 @@ mod tests {
             let mut data : [u8; 4] = [0; 4];
 
             for i in 1..5 {
-                data[4 - i] = (48 + (length % (10 * i) as u16)) as u8;
-                length = &length / (10 * i) as u16;
+                let base = (10 * i) as u16;
+                data[4 - i] = 48 + (&length % &base) as u8;
+                length = &length / &base;
             }
 
             push(&mut buffer, &data);

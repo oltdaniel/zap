@@ -24,6 +24,15 @@ pub use tokio_service::Service as Handler;
 
 pub type ZapResult = future::Ok<Response, io::Error>;
 
+pub mod prelude {
+    pub use ZapResult;
+    pub use Server;
+    pub use Handler;
+    pub use request::Request;
+    pub use response::Response;
+    pub use Http;
+}
+
 pub struct Http;
 
 impl<T: AsyncRead + AsyncWrite + 'static> ServerProto<T> for Http {
