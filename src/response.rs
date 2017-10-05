@@ -1,5 +1,3 @@
-use std::fmt::{self, Write};
-
 use bytes::{BytesMut, BufMut};
 use futures::future;
 
@@ -8,12 +6,7 @@ use ZapResult;
 pub struct Response {
     headers: Vec<(String, String)>,
     response: String,
-    status_message: StatusMessage,
-}
-
-enum StatusMessage {
-    Ok,
-    Custom(u32, String),
+    status: usize,
 }
 
 impl Response {
@@ -21,12 +14,12 @@ impl Response {
         Response {
             headers: Vec::new(),
             response: String::new(),
-            status_message: StatusMessage::Ok,
+            status: 200,
         }
     }
 
-    pub fn status(&mut self, code: u32, message: &str) -> &mut Response {
-        self.status_message = StatusMessage::Custom(code, message.to_string());
+    pub fn status(&mut self, code: usize) -> &mut Response {
+        self.status = code;
         self
     }
 
@@ -48,11 +41,11 @@ impl Response {
 pub fn encode(msg: &Response, buf: &mut BytesMut) {
     let length = msg.response.len();
 
-    write!(FastWrite(buf),
-           "HTTP/1.1 {}\r\nContent-Length: {}\r\n",
-           msg.status_message,
-           length)
-            .unwrap();
+    push(buf, &[72, 84, 84, 80, 47, 49, 46, 49, 32]); // "HTTP/1.1 "
+    push(buf, &usize_to_bytes(msg.status));
+    push(buf, &[13, 10, 67, 111, 110, 116, 101, 110, 116, 45, 76, 101, 110, 103, 116, 104, 58, 32]); // "Content-Length: "
+    push(buf, &usize_to_bytes(length));
+    push(buf, &[13, 10]); // "\r\n"
 
     for &(ref k, ref v) in &msg.headers {
         push(buf, k.as_bytes());
@@ -73,24 +66,15 @@ fn push(buf: &mut BytesMut, data: &[u8]) {
     }
 }
 
-struct FastWrite<'a>(&'a mut BytesMut);
+fn usize_to_bytes(s : usize) -> [u8; 4] {
+    let mut data : [u8; 4] = [0; 4];
+    let mut length = s as u16;
 
-impl<'a> fmt::Write for FastWrite<'a> {
-    fn write_str(&mut self, s: &str) -> fmt::Result {
-        push(&mut *self.0, s.as_bytes());
-        Ok(())
+    // Convert u16 to ASCII bytes
+    for i in 1..5 {
+        data[4 - i] = (48 + (length % (10 * i) as u16)) as u8;
+        length = &length / (10 * i) as u16;
     }
 
-    fn write_fmt(&mut self, args: fmt::Arguments) -> fmt::Result {
-        fmt::write(self, args)
-    }
-}
-
-impl fmt::Display for StatusMessage {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            StatusMessage::Ok => f.pad("200 OK"),
-            StatusMessage::Custom(c, ref s) => write!(f, "{} {}", c, s),
-        }
-    }
+    return data;
 }
