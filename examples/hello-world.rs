@@ -1,7 +1,6 @@
 extern crate zap;
 
-use std::io;
-
+use std::io::Error as ZapError;
 use zap::prelude::*;
 
 struct HelloWorld;
@@ -9,7 +8,7 @@ struct HelloWorld;
 impl Handler for HelloWorld {
     type Request = Request;
     type Response = Response;
-    type Error = io::Error;
+    type Error = ZapError;
     type Future = ZapResult;
 
     fn call(&self, _: Request) -> ZapResult {

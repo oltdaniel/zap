@@ -41,20 +41,20 @@ impl Response {
 pub fn encode(msg: &Response, buf: &mut BytesMut) {
     let length = msg.response.len();
 
-    push(buf, &[72, 84, 84, 80, 47, 49, 46, 49, 32]); // "HTTP/1.1 "
+    push(buf, b"HTTP/1.1 ");
     push(buf, &usize_to_bytes(msg.status));
-    push(buf, &[13, 10, 67, 111, 110, 116, 101, 110, 116, 45, 76, 101, 110, 103, 116, 104, 58, 32]); // "Content-Length: "
+    push(buf, b"\r\nContent-Length: ");
     push(buf, &usize_to_bytes(length));
-    push(buf, &[13, 10]); // "\r\n"
+    push(buf, b"\r\n");
 
     for &(ref k, ref v) in &msg.headers {
         push(buf, k.as_bytes());
-        push(buf, &[58, 32]); // ": "
+        push(buf,  b": ");
         push(buf, v.as_bytes());
-        push(buf, &[13, 10]); // "\r\n"
+        push(buf, b"\r\n");
     }
 
-    push(buf, &[13, 10]); // "\r\n"
+    push(buf, b"\r\n");
     push(buf, msg.response.as_bytes());
 }
 
@@ -72,9 +72,9 @@ fn usize_to_bytes(s : usize) -> [u8; 4] {
 
     // Convert u16 to ASCII bytes
     for i in 1..5 {
-        let base = (10 * i) as u16;
-        data[4 - i] = 48 + (&length % &base) as u8;
-        length = &length / &base;
+        let base = (10u16.pow(4 - (i as u32))) as u16;
+        data[i - 1] = 48 + (&length / &base) as u8;
+        length = (&length % &base) as u16;
     }
 
     return data;

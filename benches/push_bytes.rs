@@ -15,6 +15,13 @@ mod tests {
     }
 
     #[bench]
+    fn bench_push_bstr_to_buffer(b : &mut Bencher) {
+        let mut buffer = BytesMut::new();
+
+        b.iter(|| push(&mut buffer, b"HTTP/1.1 "));
+    }
+
+    #[bench]
     fn bench_extend_from_slice(b : &mut Bencher) {
         let mut buffer = BytesMut::new();
 
@@ -44,14 +51,14 @@ mod tests {
         let mut buffer = BytesMut::new();
 
         b.iter(|| {
+            let mut data : [u8; 4] = [0; 4];
             let mut length = "HTTP/1.1 200 OK".len() as u16;
 
-            let mut data : [u8; 4] = [0; 4];
-
+            // Convert u16 to ASCII bytes
             for i in 1..5 {
-                let base = (10 * i) as u16;
-                data[4 - i] = 48 + (&length % &base) as u8;
-                length = &length / &base;
+                let base = (10u16.pow(4 - (i as u32))) as u16;
+                data[i - 1] = 48 + (&length / &base) as u8;
+                length = (&length % &base) as u16;
             }
 
             push(&mut buffer, &data);
