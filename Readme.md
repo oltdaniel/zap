@@ -1,6 +1,8 @@
 # `zap` :zap:
 
 [![GitHub issues](https://img.shields.io/github/issues/oldaniel/zap.svg)](https://github.com/oldaniel/zap/issues)
+[![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://github.com/oldaniel/zap)
+[![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://github.com/oldaniel/zap)
 
 The mission of `zap` is, to deliver a basic, but fast rust web framework .
 
