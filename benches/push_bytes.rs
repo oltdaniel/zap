@@ -6,6 +6,7 @@ mod tests {
     use test::Bencher;
     use bytes::{BytesMut, BufMut};
     use std::fmt::{self, Write};
+    use std::mem::transmute;
 
     #[bench]
     fn bench_push_to_buffer(b : &mut Bencher) {
@@ -36,6 +37,28 @@ mod tests {
             push(&mut buffer, &[72, 84, 84]);
             buffer.extend_from_slice(&[80, 47, 49]);
             write!(FastWrite(&mut buffer), ".1 ").unwrap();
+        });
+    }
+
+    #[bench]
+    fn bench_convert_and_push(b : &mut Bencher) {
+        let mut buffer = BytesMut::new();
+
+        b.iter(|| {
+            let length = "HTTP/1.1 200 OK".len() as u32;
+            let data: [u8; 4] = unsafe { transmute(length.to_be()) };
+
+            push(&mut buffer, &data);
+        });
+    }
+
+    #[bench]
+    fn bench_string_to_push(b : &mut Bencher) {
+        let mut buffer = BytesMut::new();
+        let data = String::from("200 OK");
+
+        b.iter(|| {
+            push(&mut buffer, data.as_bytes());
         });
     }
 
