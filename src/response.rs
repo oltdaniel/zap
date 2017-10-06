@@ -72,13 +72,13 @@ fn push(buf: &mut BytesMut, data: &[u8]) {
 
 fn usize_to_bytes(s : usize) -> [u8; 4] {
     let mut data : [u8; 4] = [0; 4];
-    let mut length = s as u16;
+    let mut length = s as u32;
 
     // Convert u16 to ASCII bytes
     for i in 1..5 {
-        let base = (10u16.pow(4 - (i as u32))) as u16;
+        let base = (10u16.pow(4 - (i as u32))) as u32;
         data[i - 1] = 48 + (&length / &base) as u8;
-        length = (&length % &base) as u16;
+        length = (&length % &base) as u32;
     }
 
     return data;

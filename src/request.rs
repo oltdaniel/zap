@@ -56,9 +56,9 @@ pub fn decode(buf: &mut BytesMut) -> io::Result<Option<Request>> {
             let mut headers = [httparse::EMPTY_HEADER; 16];
             let mut r = httparse::Request::new(&mut headers);
             let status = try!(r.parse(buf).map_err(|e| {
-            let msg = format!("failed to parse http request: {:?}", e);
-            io::Error::new(io::ErrorKind::Other, msg)
-        }));
+                let msg = format!("failed to parse http request: {:?}", e);
+                io::Error::new(io::ErrorKind::Other, msg)
+            }));
 
             let amt = match status {
                 httparse::Status::Complete(amt) => amt,
