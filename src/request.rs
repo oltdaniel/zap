@@ -1,4 +1,4 @@
-use std::{io, slice, str, fmt};
+use std::{io, slice, str};
 
 use bytes::BytesMut;
 
@@ -41,12 +41,6 @@ impl Request {
 
     fn slice(&self, slice: &Slice) -> &[u8] {
         &self.data[slice.0..slice.1]
-    }
-}
-
-impl fmt::Debug for Request {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "<HTTP Request {} {}>", self.method(), self.path())
     }
 }
 
