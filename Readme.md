@@ -1,12 +1,13 @@
 # `zap` :zap:
 
 [![GitHub issues](https://img.shields.io/github/issues/oldaniel/zap.svg)](https://github.com/oldaniel/zap/issues)
-[![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://github.com/oldaniel/zap)
-[![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://github.com/oldaniel/zap)
+[![GitHub stars](https://img.shields.io/github/stars/oldaniel/zap.svg?style=social&label=Stars)](https://github.com/oldaniel/zap)
+[![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://crates.io/crates/zap)
+[![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://crates.io/crates/zap)
 
 The mission of `zap` is, to deliver a basic, but fast rust web framework.
 
-[Documentation](https://docs.rs/zap/0.0.1/zap/)
+[Documentation](https://docs.rs/zap/)
 
 ## About
 
@@ -41,8 +42,7 @@ fn main() {
         Ok(Response::with((status::Ok, "Hello World!")))
     }
 
-    let _server = Iron::new(hello_world).http("localhost:3000").unwrap();
-    println!("On 3000");
+    Iron::new(hello_world).http("localhost:3000").unwrap();
 }
 ```
 
@@ -95,20 +95,12 @@ Technical details about the server:
 - Intel Core I7-6700K, hyper-threaded
 - 16GB RAM, 2400MHZ
 
+Detailed results: [in the wiki](https://github.com/oldaniel/zap/wiki/Benchmarks).
+
 **Iron**
 
 ```
-Running 10s test @ http://127.0.0.1:8080
-  16 threads and 500 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   214.85us  622.27us  78.67ms   99.24%
-    Req/Sec    77.20k    51.31k  191.91k    51.98%
-  Latency Distribution
-     50%  183.00us
-     75%  219.00us
-     90%  304.00us
-     99%  746.00us
-  3103506 requests in 10.09s, 337.41MB read
+[...]
 Requests/sec: 307581.17
 Transfer/sec:     33.44MB
 ```
@@ -116,17 +108,7 @@ Transfer/sec:     33.44MB
 **Zap**
 
 ```
-Running 10s test @ http://127.0.0.1:8080
-  16 threads and 500 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     1.08ms    1.90ms  85.45ms   89.78%
-    Req/Sec    56.88k    18.89k  126.22k    71.86%
-  Latency Distribution
-     50%  327.00us
-     75%    1.42ms
-     90%    3.02ms
-     99%    7.60ms
-  9079097 requests in 10.08s, 441.58MB read
+[...]
 Requests/sec: 900745.44
 Transfer/sec:     43.81MB
 ```
@@ -142,5 +124,6 @@ Some things we still need to make:
 ## Credits & License
 
 A project by [Daniel Oltmanns](https://github.com/oldaniel).
+Other amazing contributors [here](https://github.com/oldaniel/zap/graphs/contributors).
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/oltmannsdaniel/zap/master/LICENSE)
