@@ -4,5 +4,4 @@ rust:
   - beta
   - nightly
 script:
-  - cargo bench
-  - cargo run --example hello-world --release
+  - cargo build
