@@ -22,7 +22,7 @@ zap = "0.0.1"
 
 ## Speed
 
-So `zap` is not only fast, it is wapping **2.8** times faster than [iron](https://github.com/iron/iron), which is based on [hyper](https://github.com/hyperium/hyper). Benchmarks below:
+So `zap` is not only fast, it is wapping **2.9** times faster than [iron](https://github.com/iron/iron), which is based on [hyper](https://github.com/hyperium/hyper). Benchmarks below:
 
 ### Benchmark Code
 
@@ -120,16 +120,16 @@ Transfer/sec:     33.44MB
 Running 10s test @ http://127.0.0.1:8080
   16 threads and 500 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     0.96ms    1.36ms  20.38ms   87.20%
-    Req/Sec    56.12k    18.31k  142.46k    70.97%
+    Latency     1.04ms    1.73ms  52.05ms   89.32%
+    Req/Sec    56.83k    17.19k  173.02k    73.83%
   Latency Distribution
-     50%  396.00us
-     75%    1.26ms
-     90%    2.73ms
-     99%    6.18ms
-  8982095 requests in 10.09s, 436.87MB read
-Requests/sec: 889894.86
-Transfer/sec:     43.28MB
+     50%  343.00us
+     75%    1.30ms
+     90%    2.85ms
+     99%    7.57ms
+  9071666 requests in 10.10s, 441.22MB read
+Requests/sec: 898030.66
+Transfer/sec:     43.68MB
 ```
 
 ## Todo

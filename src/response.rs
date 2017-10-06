@@ -1,11 +1,12 @@
 use bytes::{BytesMut, BufMut};
 use futures::future;
+use std::fmt::Write;
 
 use ZapResult;
 
 pub struct Response {
     headers: Vec<(String, String)>,
-    response: String,
+    response: BytesMut,
     status: usize,
 }
 
@@ -13,7 +14,7 @@ impl Response {
     pub fn new() -> Response {
         Response {
             headers: Vec::new(),
-            response: String::new(),
+            response: BytesMut::new(),
             status: 200,
         }
     }
@@ -29,7 +30,12 @@ impl Response {
     }
 
     pub fn body(&mut self, s: &str) -> &mut Response {
-        self.response = s.to_string();
+        self.response.write_str(s).unwrap();
+        self
+    }
+
+    pub fn body_raw(&mut self, s: &[u8]) -> &mut Response {
+        push(&mut self.response, s);
         self
     }
 
@@ -55,7 +61,7 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
     }
 
     push(buf, b"\r\n");
-    push(buf, msg.response.as_bytes());
+    push(buf, msg.response.as_ref());
 }
 
 fn push(buf: &mut BytesMut, data: &[u8]) {
