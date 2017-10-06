@@ -5,7 +5,7 @@ use std::fmt::Write;
 use ZapResult;
 
 pub struct Response {
-    headers: Vec<(String, String)>,
+    headers: BytesMut,
     response: BytesMut,
     status: usize,
 }
@@ -13,7 +13,7 @@ pub struct Response {
 impl Response {
     pub fn new() -> Response {
         Response {
-            headers: Vec::new(),
+            headers: BytesMut::new(),
             response: BytesMut::new(),
             status: 200,
         }
@@ -25,7 +25,11 @@ impl Response {
     }
 
     pub fn header(&mut self, name: &str, val: &str) -> &mut Response {
-        self.headers.push((name.to_string(), val.to_string()));
+        push(&mut self.headers, name.as_bytes());
+        push(&mut self.headers, b": ");
+        push(&mut self.headers, val.as_bytes());
+        push(&mut self.headers, b"\r\n");
+
         self
     }
 
@@ -52,13 +56,7 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
     push(buf, b"\r\nContent-Length: ");
     push(buf, &usize_to_bytes(length));
     push(buf, b"\r\n");
-
-    for &(ref k, ref v) in &msg.headers {
-        push(buf, k.as_bytes());
-        push(buf,  b": ");
-        push(buf, v.as_bytes());
-        push(buf, b"\r\n");
-    }
+    push(buf, msg.headers.as_ref());
 
     push(buf, b"\r\n");
     push(buf, msg.response.as_ref());
