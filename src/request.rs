@@ -47,8 +47,13 @@ impl Request {
     }
 
     /// Get the request raw data wit a given length
-    fn slice(&self, slice: &Slice) -> &[u8] {
+    pub fn slice(&self, slice: &Slice) -> &[u8] {
         &self.data[slice.0..slice.1]
+    }
+
+    /// Get raw body
+    pub fn data(&self) -> BytesMut {
+        self.data.clone()
     }
 }
 
