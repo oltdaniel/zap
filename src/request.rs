@@ -100,16 +100,20 @@ pub fn decode(buf: &mut BytesMut) -> io::Result<Option<Request>> {
          amt)
     };
 
-    // Create a new Request object
-    Ok(Request {
+    let request = Request {
                method: method,
                path: path,
                version: version,
                headers: headers,
                data: buf.split_to(amt),
                body: buf.clone(),
-           }
-           .into())
+           };
+    
+    // Clear buffer for next request
+    buf.clear();
+
+    // Create a new Request object
+    Ok(request.into())
 }
 
 impl<'req> Iterator for RequestHeaders<'req> {
