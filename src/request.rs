@@ -12,6 +12,7 @@ pub struct Request {
     version: u8,
     headers: Vec<(Slice, Slice)>,
     data: BytesMut,
+    body: BytesMut,
 }
 
 // Store start position and data length
@@ -51,9 +52,14 @@ impl Request {
         &self.data[slice.0..slice.1]
     }
 
-    /// Get raw body
+    /// Get raw request
     pub fn data(&self) -> BytesMut {
         self.data.clone()
+    }
+
+    /// Get raw body
+    pub fn body(&self) -> BytesMut {
+        self.body.clone()
     }
 }
 
@@ -101,6 +107,7 @@ pub fn decode(buf: &mut BytesMut) -> io::Result<Option<Request>> {
                version: version,
                headers: headers,
                data: buf.split_to(amt),
+               body: buf.clone(),
            }
            .into())
 }

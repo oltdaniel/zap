@@ -21,6 +21,9 @@ impl Handler for HelloWorld {
             ("GET", "/bye") => {
                 resp.body("Bye World!");
             },
+            ("POST", "/echo") => {
+                resp.body_raw(req.body().as_ref());
+            }
             _ => {
                 resp.body("Not Found").status(404);
             }
