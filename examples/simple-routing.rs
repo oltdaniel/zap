@@ -2,6 +2,7 @@ extern crate zap;
 
 use std::io::Error as ZapError;
 use zap::prelude::*;
+use std::str;
 
 struct HelloWorld;
 
@@ -14,20 +15,24 @@ impl Handler for HelloWorld {
     fn call(&self, req: Request) -> ZapResult {
         let mut resp = Response::new();
 
-        match (req.method(), req.path()) {
+        let (status, body) = match (req.method(), req.path()) {
             ("GET", "/") => {
-                resp.body("Hello World!");
+                (200, "Hello World!")
             },
             ("GET", "/bye") => {
-                resp.body("Bye World!");
+                (200, "Bye World!")
             },
             ("POST", "/echo") => {
-                resp.body_raw(req.body().as_ref());
+                let b = str::from_utf8(req.body().as_ref()).unwrap_or("No Body");
+                (200, b)
             }
             _ => {
-                resp.body("Not Found").status(404);
+                (404, "Not Found")
             }
-        }
+        };
+
+        resp.body(body);
+        resp.status(status);
 
         resp.ok()
     }

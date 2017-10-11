@@ -53,13 +53,13 @@ impl Request {
     }
 
     /// Get raw request
-    pub fn data(&self) -> BytesMut {
-        self.data.clone()
+    pub fn data(&self) -> &BytesMut {
+        &self.data
     }
 
     /// Get raw body
-    pub fn body(&self) -> BytesMut {
-        self.body.clone()
+    pub fn body(&self) -> &BytesMut {
+        &self.body
     }
 }
 
