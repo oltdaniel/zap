@@ -1,6 +1,6 @@
 [package]
 name = "zap"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Daniel Oltmanns <daniel.oltmanns@outlook.de>"]
 description = "Ligthing fast web framework for rust"
 keywords = ["web-framework", "http", "efficiency"]

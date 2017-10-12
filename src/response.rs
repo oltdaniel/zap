@@ -92,7 +92,7 @@ fn usize_to_bytes(s : usize) -> BytesMut {
     let mut length = s as u32;
 
     // Convert u16 to ASCII bytes
-    let mut addZero = false;
+    let mut add_zero = false;
     for i in 1..5 {
         let base = (10u16.pow(4 - (i as u32))) as u32;
 
@@ -100,11 +100,11 @@ fn usize_to_bytes(s : usize) -> BytesMut {
         let c = 48 + (&length / &base) as u8;
 
         // Add byte
-        if c == 48 && addZero {
+        if c == 48 && add_zero {
             data.put_u8(c);
         } else if c != 48 {
-            if !addZero {
-                addZero = true;
+            if !add_zero {
+                add_zero = true;
             }
 
             data.put_u8(c);
