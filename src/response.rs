@@ -63,9 +63,9 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
 
     // Encode the data
     push(buf, b"HTTP/1.1 ");
-    push(buf, usize_to_bytes(msg.status).as_ref());
+    usize_to_bytes(msg.status, buf);
     push(buf, b"\r\nContent-Length: ");
-    push(buf, usize_to_bytes(length).as_ref());
+    usize_to_bytes(length, buf);
     push(buf, b"\r\n");
     push(buf, msg.headers.as_ref());
 
@@ -86,30 +86,27 @@ fn push(buf: &mut BytesMut, data: &[u8]) {
 }
 
 // Convert a usize to raw data without strings
-fn usize_to_bytes(s : usize) -> BytesMut {
+fn usize_to_bytes(s : usize, buf : &mut BytesMut) {
     // Define varibales we need
-    let mut data : BytesMut = BytesMut::new();
     let mut length = s as u32;
+    let mut data : [u8; 6] = [0; 6];
 
     // Convert u16 to ASCII bytes
-    loop {
+    for i in 0..5 {
         // Calculate ascii decimal
         let c = 48 + (&length % 10 as u32) as u8;
 
         // Add Char
-        data.put_u8(c);
+        data[5 - i] = c;
 
         // New length
         length = (&length / 10 as u32) as u32;
 
-        // Is there anything left to process?
-        if length == 0 {
+        // Add data to buffer
+        if length <= 9 {
+            data[4 - i] = 48 + length as u8;
+            push(buf, &data[(4 - i)..6]);
             break;
         }
     }
-
-    // Reverse data
-    data.reverse();
-
-    return data;
 }

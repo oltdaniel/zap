@@ -30,6 +30,7 @@
 //!
 
 // Load all crates and modules
+#![feature(slice_rotate)]
 extern crate bytes;
 extern crate futures;
 extern crate httparse;

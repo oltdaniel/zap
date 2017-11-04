@@ -47,25 +47,6 @@ mod tests {
     }
 
     #[bench]
-    fn bench_convert_and_push(b : &mut Bencher) {
-        let mut buffer = BytesMut::new();
-
-        b.iter(|| {
-            let mut data : [u8; 4] = [0; 4];
-            let mut length = "HTTP/1.1 200 OK".len() as u16;
-
-            // Convert u16 to ASCII bytes
-            for i in 1..5 {
-                let base = (10u16.pow(4 - (i as u32))) as u16;
-                data[i - 1] = 48 + (&length / &base) as u8;
-                length = (&length % &base) as u16;
-            }
-
-            push(&mut buffer, &data);
-        });
-    }
-
-    #[bench]
     fn bench_string_to_push(b : &mut Bencher) {
         let mut buffer = BytesMut::new();
         let data = String::from("200 OK");
