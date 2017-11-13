@@ -30,10 +30,8 @@
 //!
 
 // Load all crates and modules
-#![feature(slice_rotate)]
 extern crate bytes;
 extern crate futures;
-extern crate httparse;
 extern crate tokio_io;
 extern crate tokio_proto;
 extern crate tokio_service;

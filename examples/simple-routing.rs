@@ -15,12 +15,12 @@ impl Handler for HelloWorld {
     fn call(&self, req: Request) -> ZapResult {
         // Create new Response
         let mut resp = Response::new();
-        let head = req.data();
+        let head = req.first();
 
         // Different content, depending on route
-        if head.starts_with(b"GET / HTTP/1.1\r\n") {
+        if head.starts_with(b"GET / HTTP/1.1\r") {
             resp.body_raw(b"Hello World");
-        } else if head.starts_with(b"GET /bye HTTP/1.1\r\n") {
+        } else if head.starts_with(b"GET /bye HTTP/1.1\r") {
             resp.body_raw(b"Bye Bye");
         } else {
             resp.body_raw(b"Not Found");
