@@ -1,7 +1,7 @@
 # `zap` :zap:
 
-[![GitHub issues](https://img.shields.io/github/issues/oldaniel/zap.svg)](https://github.com/oldaniel/zap/issues)
-[![GitHub stars](https://img.shields.io/github/stars/oldaniel/zap.svg?style=social&label=Stars)](https://github.com/oldaniel/zap)
+[![GitHub issues](https://img.shields.io/github/issues/oltdaniel/zap.svg)](https://github.com/oltdaniel/zap/issues)
+[![GitHub stars](https://img.shields.io/github/stars/oltdaniel/zap.svg?style=social&label=Stars)](https://github.com/oltdaniel/zap)
 [![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://crates.io/crates/zap)
 [![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://crates.io/crates/zap)
 
@@ -12,6 +12,9 @@ The mission of `zap` is, to deliver a basic, but fast rust web framework.
 ## About
 
 **This code is based on tokio's minihttp project, so a big thanks to them.** ([source](https://github.com/tokio-rs/tokio-minihttp))
+
+
+The goal of this project is, to show how fast Rust can be. It isn't made for huge complex applications, just a test project for benchmark reasons.
 
 ## How to use
 
@@ -51,7 +54,7 @@ fn main() {
 This example can be run, by:
 
 ```
-$ git clone https://github.com/oldaniel/zap && cd zap
+$ git clone https://github.com/oltdaniel/zap && cd zap
 $ cargo run --example hello-world --release
 ```
 
@@ -95,7 +98,7 @@ Technical details about the server:
 - Intel Core I7-6700K, hyper-threaded
 - 16GB RAM, 2400MHZ
 
-Detailed results: [in the wiki](https://github.com/oldaniel/zap/wiki/Benchmarks).
+Detailed results: [in the wiki](https://github.com/oltdaniel/zap/wiki/Benchmarks).
 
 **Iron**
 
@@ -113,17 +116,10 @@ Requests/sec: 912832.31
 Transfer/sec:     40.90MB
 ```
 
-## Todo
-
-Some things we still need to make:
-
-- [X] Make it faster
-- [ ] URL and body parsing
-- [ ] Request key storing
-
 ## Credits & License
 
-A project by [Daniel Oltmanns](https://github.com/oldaniel).
-Other amazing contributors [here](https://github.com/oldaniel/zap/graphs/contributors).
+[Daniel Oltmanns](https://github.com/oltdaniel) & [others](https://github.com/oltdaniel/zap/graphs/contributors)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/oltmannsdaniel/zap/master/LICENSE)
+_Basically do what you'd like to._
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/oltdaniel/zap/blob/master/LICENSE)

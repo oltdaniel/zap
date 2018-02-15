@@ -1,15 +1,15 @@
 [package]
 name = "zap"
 version = "0.0.4"
-authors = ["Daniel Oltmanns <daniel.oltmanns@outlook.de>"]
+authors = ["Daniel Oltmanns <oltmannsdaniel@outlook.com>"]
 description = "Ligthing fast web framework for rust"
 keywords = ["web-framework", "http", "efficiency"]
 categories = ["network-programming", "web-programming"]
 
 exclude = [".gitignore", "examples/*", "benches/*"]
 readme = "Readme.md"
-license = "MIT/Apache-2.0"
-repository = "https://github.com/oldaniel/zap"
+license = "MIT"
+repository = "https://github.com/oltdaniel/zap"
 
 [dependencies]
 bytes = "0.4.5"
