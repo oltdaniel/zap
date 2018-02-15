@@ -75,7 +75,7 @@ pub fn encode(msg: &Response, buf: &mut BytesMut) {
 
 // Push bytes to a buffer
 fn push(buf: &mut BytesMut, data: &[u8]) {
-    // Alloc new space
+    // Allocate new space
     buf.reserve(data.len());
 
     unsafe {
@@ -88,21 +88,13 @@ fn push(buf: &mut BytesMut, data: &[u8]) {
 // Convert a usize to raw data without strings
 fn usize_to_bytes(s : usize, buf : &mut BytesMut) {
     // Define varibales we need
-    let mut length = s as u32;
+    let mut length = s;
     let mut data : [u8; 6] = [0; 6];
 
-    // Convert u16 to ASCII bytes
     for i in 0..5 {
-        // Calculate ascii decimal
-        let c = 48 + (&length % 10 as u32) as u8;
+        data[5 - i] = 48 + (&length % 10) as u8;
+        length = (&length / 10) as usize;
 
-        // Add Char
-        data[5 - i] = c;
-
-        // New length
-        length = (&length / 10 as u32) as u32;
-
-        // Add data to buffer
         if length <= 9 {
             data[4 - i] = 48 + length as u8;
             push(buf, &data[(4 - i)..6]);

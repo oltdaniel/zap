@@ -6,6 +6,12 @@ mod tests {
     use test::Bencher;
     use bytes::{BytesMut, BufMut};
 
+    pub struct Request {
+        first: BytesMut,
+        head: BytesMut,
+        body: BytesMut,
+    }
+
     #[bench]
     fn bench_parse_request(b : &mut Bencher) {
         let mut buffer = BytesMut::new();
@@ -59,6 +65,22 @@ mod tests {
                     }
                 };
             }
+
+
+            // Split buffers into parts
+            let first = buffer.split_to(firstc as usize);
+            let head = buffer.split_to(headc as usize);
+            let body = buffer.clone();
+
+            // Clear buffer for next request
+            buffer.clear();
+
+            // Build request object
+            let request = Request {
+                first: first,
+                head: head,
+                body: body,
+            };
         });
     }
 
