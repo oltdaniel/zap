@@ -1,6 +1,7 @@
 # `zap` :zap:
 
 [![GitHub issues](https://img.shields.io/github/issues/oltdaniel/zap.svg)](https://github.com/oltdaniel/zap/issues)
+[![Travis](https://img.shields.io/travis/oltdaniel/zap.svg)](https://travis-ci.org/oltdaniel/zap)
 [![GitHub stars](https://img.shields.io/github/stars/oltdaniel/zap.svg?style=social&label=Stars)](https://github.com/oltdaniel/zap)
 [![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://crates.io/crates/zap)
 [![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://crates.io/crates/zap)
