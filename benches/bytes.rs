@@ -13,8 +13,8 @@ mod tests {
         let data = b"This is some data!";
 
         b.iter(|| {
-            for _i in 0..1000 {
-                buffer.reserve(data.len());
+            for _i in 0..100 {
+                push(&mut buffer, data);
             }
         });
     }
@@ -27,11 +27,26 @@ mod tests {
         let mut length = 0 as usize;
 
         b.iter(|| {
-            for _i in 0..1000 {
-                length += data.len();
+            length = data.len() * 100;
+            buffer.reserve(length);
+
+            for _i in 0..100 {
+                unsafe {
+                    buffer.bytes_mut()[..data.len()].copy_from_slice(data.as_ref());
+                }
             }
 
-            buffer.reserve(length);
+            unsafe {
+                buffer.advance_mut(length);
+            }
         });
+    }
+
+    fn push(buf: &mut BytesMut, data: &[u8]) {
+        buf.reserve(data.len());
+        unsafe {
+            buf.bytes_mut()[..data.len()].copy_from_slice(data);
+            buf.advance_mut(data.len());
+        }
     }
 }
