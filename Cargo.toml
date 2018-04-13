@@ -2,11 +2,11 @@
 name = "zap"
 version = "0.0.4"
 authors = ["Daniel Oltmanns <oltmannsdaniel@outlook.com>"]
-description = "Ligthing fast web framework for rust"
+description = "Ligthing fast web server library for rust"
 keywords = ["web-framework", "http", "efficiency"]
 categories = ["network-programming", "web-programming"]
 
-exclude = [".gitignore", "examples/*", "benches/*"]
+exclude = [".gitignore", ".travis.yml", "examples/*", "benches/*"]
 readme = "Readme.md"
 license = "MIT"
 repository = "https://github.com/oltdaniel/zap"

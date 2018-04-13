@@ -6,7 +6,7 @@
 [![Crates.io](https://img.shields.io/crates/d/zap.svg)](https://crates.io/crates/zap)
 [![Crates.io](https://img.shields.io/crates/v/zap.svg)](https://crates.io/crates/zap)
 
-The mission of `zap` is, to deliver a basic, but fast rust web framework.
+The mission of `zap` is, to deliver a basic, but fast rust web server library.
 
 [Documentation](https://docs.rs/zap/)
 
